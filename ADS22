@@ -1,0 +1,127 @@
+import pandas as pd
+
+import matplotlib.pyplot as plt
+
+
+
+
+
+def readfile(fn):
+
+    df = pd.read_csv(fn, skiprows=3)
+
+    
+
+    df = df.set_index('Country Name')
+
+    
+
+    df = df.drop(columns=['Country Code', 'Indicator Code', 'Indicator Name'])
+
+
+
+    df_trans = df.T
+
+    
+
+    return df, df_trans
+
+
+
+
+
+df_forest, df_forest_trans = readfile('Forest_Land.csv')
+
+df_agri, df_agri_trans = readfile('Agricultural_Land.csv')
+
+df_co2, df_co2_trans = readfile('Carbon_Emissions.csv')
+
+
+
+print(df_co2_trans['United States'].describe())
+
+print()
+
+print(df_co2_trans['United Kingdom'].describe())
+
+print()
+
+print(df_co2_trans['China'].describe())
+
+print()
+
+print(df_co2_trans['India'].describe())
+
+
+
+
+
+plt.figure(figsize=(20, 6))
+
+plt.plot(df_forest_trans.index, df_forest_trans['United States'], label='USA')
+
+plt.plot(df_forest_trans.index, df_forest_trans['United Kingdom'], label='UK')
+
+plt.plot(df_forest_trans.index, df_forest_trans['China'], label='China')
+
+plt.plot(df_forest_trans.index, df_forest_trans['India'], label='India')
+
+plt.xlabel('Years')
+
+plt.ylabel('Forest Area Percentage of Land (%)')
+
+plt.title('Percentage of land area covered by forest of different countries')
+
+plt.xlim('1990', '2020')
+
+plt.legend()
+
+plt.show()
+
+
+
+plt.figure(figsize=(20, 6))
+
+plt.plot(df_agri_trans.index, df_agri_trans['United States'], label='USA')
+
+plt.plot(df_agri_trans.index, df_agri_trans['United Kingdom'], label='UK')
+
+plt.plot(df_agri_trans.index, df_agri_trans['China'], label='China')
+
+plt.plot(df_agri_trans.index, df_agri_trans['India'], label='India')
+
+plt.xlabel('Years')
+
+plt.ylabel('Agricultural Area Percentage of Land (%)')
+
+plt.title('Percentage of land area covered by agricultural land of different countries')
+
+plt.xlim('1990', '2020')
+
+plt.legend()
+
+plt.show()
+
+
+
+plt.figure(figsize=(20, 6))
+
+plt.plot(df_co2_trans.index, df_co2_trans['United States'], label='USA')
+
+plt.plot(df_co2_trans.index, df_co2_trans['United Kingdom'], label='UK')
+
+plt.plot(df_co2_trans.index, df_co2_trans['China'], label='China')
+
+plt.plot(df_co2_trans.index, df_co2_trans['India'], label='India')
+
+plt.xlabel('Years')
+
+plt.ylabel('CO2 Emissions (kt)')
+
+plt.title('Carbon emissions of different countries')
+
+plt.xlim('1990', '2020')
+
+plt.legend()
+
+plt.show()
